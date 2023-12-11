@@ -1,0 +1,11 @@
+.display {
+  width: 100%;
+  max-width: 300px;
+  min-height: 75px;
+  border: 1px solid;
+  border-radius: 10px;
+  margin: 20px auto;
+  font-size: 40px;
+  display: flex;
+  align-items: center;
+}

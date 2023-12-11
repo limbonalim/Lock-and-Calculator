@@ -1,8 +1,10 @@
+import Lock from './containers/Lock/Lock';
+
 const App = () => {
 
   return (
     <>
-      <div>App component</div>
+      <Lock/>
     </>
   );
 };

@@ -1,0 +1,19 @@
+.button {
+  width: 70px;
+  box-sizing: border-box;
+  color: grey;
+  padding: 20px 30px;
+  border: 1px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+  background: linear-gradient(0deg, rgba(163, 212, 213, 0.1) 0%, rgba(231, 225, 214, 0.1) 100%);
+}
+
+.button:hover {
+  color: black;
+  font-weight: 700;
+}
+
+.button:active {
+  background: linear-gradient(0deg, rgba(231, 225, 214, 0.2) 0%, rgba(163, 212, 213, 0.2) 100%);
+}
