@@ -1,0 +1,1 @@
+export const PIN = '1234';

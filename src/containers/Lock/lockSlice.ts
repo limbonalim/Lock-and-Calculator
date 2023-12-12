@@ -1,4 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {PIN} from '../../constants';
 
 interface LockState {
   value: string;
@@ -15,16 +16,21 @@ export const lockSlice = createSlice({
   initialState,
   reducers: {
     add: (state, action: PayloadAction<string>) => {
-      state.value += action.payload;
+      if (state.value.length < 4) {
+        state.value += action.payload;
+      }
     },
     check: (state, action: PayloadAction<boolean>) => {
-      if (state.value === '1234') {
+      if (state.value === PIN) {
         state.status = 1;
       } else {
         state.status = 2;
       }
+
       if (action.payload) {
         state.status = 0;
+      } else {
+        state.value = '';
       }
     },
     remove: (state) => {
@@ -33,10 +39,16 @@ export const lockSlice = createSlice({
         current.pop();
         state.value = current.join('');
       }
+    },
+    refresh: (state) => {
+      state = {
+        value: '',
+        status: 0,
+      };
     }
   }
 });
 
 export const lockReducer = lockSlice.reducer;
 
-export const {add, check, remove} = lockSlice.actions;
+export const {add, check, remove, refresh} = lockSlice.actions;
