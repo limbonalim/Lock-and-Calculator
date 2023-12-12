@@ -10,4 +10,13 @@
   align-items: center;
   padding: 3px;
   overflow: hidden;
+  box-sizing: border-box;
+}
+
+.display.open {
+  background: rgba(18, 185, 8, 0.4);
+}
+
+.display.close {
+  background: rgba(222, 16, 73, 0.4);
 }

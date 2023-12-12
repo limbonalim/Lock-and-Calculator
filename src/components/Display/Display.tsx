@@ -1,30 +1,24 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React from 'react';
 import './Display.css';
 
+
 interface Props {
+  style?: string[];
   value: string;
 }
 
-const Display: React.FC<Props> = ({value}) => {
-  const [pin, setPin] = useState<string>('');
-  const getHidingPin = useCallback(() => {
-    let hidingPin = '';
-    if (value.length) {
-      for (let i = 0; i < value.length; i++) {
-        hidingPin += '*';
-      }
-    }
-    setPin(hidingPin);
-  }, [value]);
+const MemoDisplay: React.FC<Props> = React.memo(function Display({style, value}) {
+  if (!style) {
+    style = ['display'];
+  }
 
-  useEffect(() => {
-    getHidingPin();
-  }, [getHidingPin]);
   return (
-    <div className="display">
-      {pin}
+    <div className={style.join(' ')}>
+      {value}
     </div>
   );
-};
+}, (prevProps, nextProps) => {
+  return (prevProps.value === nextProps.value) && (prevProps.style.length === nextProps.style.length);
+});
 
-export default Display;
+export default MemoDisplay;
