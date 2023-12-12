@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import './Display.css';
 
 interface Props {
@@ -6,9 +6,23 @@ interface Props {
 }
 
 const Display: React.FC<Props> = ({value}) => {
+  const [pin, setPin] = useState<string>('');
+  const getHidingPin = useCallback(() => {
+    let hidingPin = '';
+    if (value.length) {
+      for (let i = 0; i < value.length; i++) {
+        hidingPin += '*';
+      }
+    }
+    setPin(hidingPin);
+  }, [value]);
+
+  useEffect(() => {
+    getHidingPin();
+  }, [getHidingPin]);
   return (
     <div className="display">
-      {value}
+      {pin}
     </div>
   );
 };
