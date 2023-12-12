@@ -78,7 +78,6 @@ const Lock = () => {
       <MemoDisplay
         value={pin}
         style={style}
-        status={lockValue.status}
       />
       <div className="keyboard">
         {keyboard}

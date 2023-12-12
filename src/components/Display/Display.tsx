@@ -18,7 +18,7 @@ const MemoDisplay: React.FC<Props> = React.memo(function Display({style, value})
     </div>
   );
 }, (prevProps, nextProps) => {
-  return (prevProps.value === nextProps.value) && (prevProps.style.length === nextProps.style.length);
+  return (prevProps.value === nextProps.value) && (prevProps.style?.length === nextProps.style?.length);
 });
 
 export default MemoDisplay;
