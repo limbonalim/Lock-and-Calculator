@@ -4,11 +4,13 @@ import {PIN} from '../../constants';
 interface LockState {
   value: string;
   status: number;
+  showLink: boolean;
 }
 
 const initialState: LockState = {
   value: '',
   status: 0,
+  showLink: false
 };
 
 export const lockSlice = createSlice({
@@ -23,6 +25,7 @@ export const lockSlice = createSlice({
     check: (state, action: PayloadAction<boolean>) => {
       if (state.value === PIN) {
         state.status = 1;
+        state.showLink = true;
       } else {
         state.status = 2;
       }

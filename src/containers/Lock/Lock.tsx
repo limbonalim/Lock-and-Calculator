@@ -6,13 +6,16 @@ import MemoButton from '../../components/Button/Button';
 import {RootState} from '../../app/store';
 import {add, check, refresh, remove} from './lockSlice';
 import './Lock.css';
+import {ShowLinkState} from '../../types';
 
 
 const buttons: string[] = ['7', '8', '9', '4', '5', '6', '1', '2', '3', '>', '0', 'E'];
 const Lock = () => {
   const [pin, setPin] = useState<string>('');
   const [style, setStyle] = useState<string[]>(['display']);
-  const [showLink, setShowLink] = useState<boolean>(false);
+  const [link, setLink] = useState<ShowLinkState>({
+    link: null
+  });
   const lockValue = useSelector((state: RootState) => state.lock);
   const dispatch = useDispatch();
 
@@ -34,7 +37,6 @@ const Lock = () => {
           'open'
         ];
       });
-      setShowLink(true);
     } else if (lockValue.status === 2) {
       setStyle(prevState => {
         return [
@@ -43,6 +45,7 @@ const Lock = () => {
         ];
       });
     }
+
     if (lockValue.status !== 0) {
       const stop = setInterval(() => {
         dispatch(check(true));
@@ -50,13 +53,29 @@ const Lock = () => {
         clearInterval(stop);
       }, 1000);
     }
-
   }, [lockValue.status, lockValue.value]);
 
   useEffect(() => {
     void getHidingPin();
+  }, [getHidingPin]);
+
+  useEffect(() => {
     void getStyle();
-  }, [getHidingPin, getStyle]);
+  }, [getStyle]);
+
+  useEffect(() => {
+    if (lockValue.showLink) {
+      setLink({
+        link: (<Link
+          className="btn btn-outline-success"
+          to="/calculator"
+          onClick={dispatch(refresh())}
+        >Go to Calculator
+        </Link>)
+      });
+    }
+  }, [lockValue.showLink]);
+
 
   const onClick = (value: string) => {
     switch (value) {
@@ -90,14 +109,7 @@ const Lock = () => {
           {keyboard}
         </div>
       </div>
-
-      <Link
-        style={showLink ? {display: 'block'} : {display: 'none'}}
-        className="btn btn-outline-success"
-        to="/calculator"
-        onClick={dispatch(refresh())}
-      >Go to Calculator
-      </Link>
+      {link.link}
     </>
   );
 };
