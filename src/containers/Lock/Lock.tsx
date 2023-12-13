@@ -4,7 +4,7 @@ import {useNavigate} from 'react-router-dom';
 import MemoDisplay from '../../components/Display/Display';
 import MemoButton from '../../components/Button/Button';
 import {RootState} from '../../app/store';
-import {add, check, remove} from './lockSlice';
+import {add, check, refresh, remove} from './lockSlice';
 import './Lock.css';
 
 const buttons: string[] = ['7', '8', '9', '4', '5', '6', '1', '2', '3', '>', '0', 'E'];
@@ -28,6 +28,7 @@ const Lock = () => {
     if (lockValue.link) {
       const stop = setInterval(() => {
         navigate('/calculator');
+        dispatch(refresh());
         clearInterval(stop);
       }, 1000);
     }

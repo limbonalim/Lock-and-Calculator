@@ -1,13 +1,14 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {PIN} from '../../constants';
-import {JSX} from 'react';
+
 
 interface LockState {
   value: string;
   pin: string[];
   style: string[];
   status: number;
-  link: null | JSX;
+  link: boolean;
+  lockButton: boolean;
 }
 
 const initialState: LockState = {
@@ -15,7 +16,8 @@ const initialState: LockState = {
   pin: [],
   style: ['display'],
   status: 0,
-  link: null
+  link: false,
+  lockButton: false,
 };
 
 export const lockSlice = createSlice({
@@ -23,7 +25,7 @@ export const lockSlice = createSlice({
   initialState,
   reducers: {
     add: (state, action: PayloadAction<string>) => {
-      if (state.value.length < 4 && state.pin.length < 4) {
+      if (state.value.length < 4 && state.pin.length < 4 && !state.lockButton) {
         state.value += action.payload;
         state.pin.push('*');
       }
@@ -31,6 +33,7 @@ export const lockSlice = createSlice({
     check: (state, action: PayloadAction<boolean>) => {
       if (state.status === 0) {
         state.style = ['display'];
+        state.lockButton = false;
       }
 
       if (!action.payload) {
@@ -38,9 +41,11 @@ export const lockSlice = createSlice({
           state.status = 1;
           state.style = [...state.style, 'open'];
           state.link = true;
+          state.lockButton = true;
         } else {
           state.style = [...state.style, 'close'];
           state.status = 2;
+          state.lockButton = true;
         }
       }
       if (action.payload) {
@@ -58,9 +63,16 @@ export const lockSlice = createSlice({
         state.pin.pop();
       }
     },
-  }
+    refresh: (state) => {
+      state.value = '';
+      state.pin = [];
+      state.style = ['display'];
+      state.status = 0;
+      state.link = false;
+    }
+  },
 });
 
 export const lockReducer = lockSlice.reducer;
 
-export const {add, check, remove} = lockSlice.actions;
+export const {add, check, remove, refresh} = lockSlice.actions;

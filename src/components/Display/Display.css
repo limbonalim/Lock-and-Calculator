@@ -17,6 +17,18 @@
   background: rgba(18, 185, 8, 0.4);
 }
 
+.display.open:before {
+  content: 'Access Granted';
+  font-size: 20px;
+  display: block;
+}
+
 .display.close {
   background: rgba(222, 16, 73, 0.4);
+}
+
+.display.close:before {
+  content: 'Access Denied';
+  font-size: 20px;
+  display: block;
 }

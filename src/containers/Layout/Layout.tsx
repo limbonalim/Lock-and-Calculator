@@ -5,11 +5,11 @@ interface Props extends PropsWithChildren {
 
 }
 
-const Layout:React.FC = ({children}) => {
+const Layout: React.FC = ({children}) => {
   return (
     <>
       <header className="container py-2">
-            <Link className="nav-link" to="/">Home</Link>
+        <Link className="nav-link" to="/">Lock</Link>
       </header>
       <main className="my-5 container">
         {children}

@@ -92,7 +92,7 @@ export const calculatorSlice = createSlice({
       state.switcher = false;
       state.operator = '/';
     }
-  }
+  },
 });
 
 export const calculatorReducer = calculatorSlice.reducer;
